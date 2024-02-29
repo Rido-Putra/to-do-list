@@ -1,10 +1,11 @@
 import json
 
+print("hello world")
 data_file_path = "data.json"
 
 # Load data from the file when the program starts
 try:
-    with open(data_file_path, 'r') as file:
+    with open(data_file_path, "r") as file:
         data = json.load(file)
 except FileNotFoundError:
     # Handle the case where the file doesn't exist yet
@@ -12,9 +13,11 @@ except FileNotFoundError:
 
 logged_in_user = None
 
+
 def saveData():
-    with open(data_file_path, 'w') as file:
+    with open(data_file_path, "w") as file:
         json.dump(data, file)
+
 
 def register():
     username = input("Enter a new username: ")
@@ -22,6 +25,7 @@ def register():
     # For a real-world application, you should hash the password before storing it
     data["users"][username] = {"password": password}
     saveData()
+
 
 def login():
     global logged_in_user
@@ -33,6 +37,7 @@ def login():
     else:
         print("Invalid credentials. Please try again.")
 
+
 def addTask():
     if logged_in_user is None:
         print("Please login first.")
@@ -42,17 +47,21 @@ def addTask():
     print(f"Task '{task}' added to the list.")
     saveData()
 
+
 def listTasks():
     if logged_in_user is None:
         print("Please login first.")
         return
-    user_tasks = [task["task"] for task in data["tasks"] if task["user"] == logged_in_user]
+    user_tasks = [
+        task["task"] for task in data["tasks"] if task["user"] == logged_in_user
+    ]
     if not user_tasks:
         print("You have no tasks currently.")
     else:
         print("Your tasks: ")
         for index, task in enumerate(user_tasks):
             print(f"Task #{index}. {task}")
+
 
 if __name__ == "__main__":
     # create a loop to run the app
