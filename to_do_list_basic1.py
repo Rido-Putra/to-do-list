@@ -73,6 +73,7 @@ def editTasks():
         print("Please enter a valid number.")
 
 def removeTasks():
+    pass
 
 
 if __name__ == "__main__":
