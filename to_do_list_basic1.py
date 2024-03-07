@@ -54,6 +54,27 @@ def listTasks():
         for index, task in enumerate(user_tasks):
             print(f"Task #{index}. {task}")
 
+def editTasks():
+    if logged_in_user is None:
+        print("Please login first.")
+        return
+    listTasks() #Show the user their current tasks
+    try:
+      taskNumber = int(input("Enter the number of taks you want to edit: "))
+      user_tasks = [task for task in data["tasks"] if tasks["user"] == logged_in_user]
+      if taskNumber >= 0 and taskNumber < len(user_tasks):
+          new_task_desc = input("Enter the new description of the task: ")
+          user_tasks[taskNumber]["task"] = new_task_desc #update the task description
+          print("Task updated successfully.")
+          saveData()
+      else:
+            print("Invalid task number.")
+    except ValueError:
+        print("Please enter a valid number.")
+
+def removeTasks():
+
+
 if __name__ == "__main__":
     # create a loop to run the app
     print("Welcome to the to-do list app")
@@ -65,7 +86,9 @@ if __name__ == "__main__":
         print("2. Login")
         print("3. Add a new task")
         print("4. List tasks")
-        print("5. Save and Quit")
+        print("5. Edit tasks")
+        print("6. Remove Tasks")
+        print("7. Save and Quit")
 
         choice = input("Please enter your choice: ")
 
@@ -78,6 +101,10 @@ if __name__ == "__main__":
         elif choice == "4":
             listTasks()
         elif choice == "5":
+            editTasks()
+        elif choice == "6":
+            Tasks()
+        elif choice == "7":
             # Save data to the file before quitting
             saveData()
             break
